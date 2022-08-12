@@ -1,0 +1,43 @@
+.node {
+    &-container {
+        padding: 5rem 2rem;
+
+        background-color: #EEE;
+    }
+
+    &-item {
+        background-color: #FFF;
+
+        margin-bottom: 2rem;
+
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+
+        font-size: 1.5rem;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        user-select: none;
+
+        position: relative;
+
+        
+        &::before {
+            content: "";
+            background-color: #CCC;
+
+            position: absolute;
+
+            top: -2rem;
+
+            display: block;
+
+            height: 100%;
+            width: 1px;
+
+            z-index: 200;
+        }
+    }
+}
