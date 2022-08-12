@@ -13,6 +13,7 @@ const data = {
     depth: 1,
     parent: null,
     expanded: false,
+    clickExpanded: false,
     childrenAdded: false
   },
   2: {
@@ -21,6 +22,7 @@ const data = {
     depth: 2,
     parent: 1,
     expanded: false,
+    clickExpanded: false,
     childrenAdded: false
   },
   3: {
@@ -29,6 +31,7 @@ const data = {
     depth: 2,
     parent: 1,
     expanded: false,
+    clickExpanded: false,
     childrenAdded: false
   },
   4: {
@@ -37,6 +40,7 @@ const data = {
     depth: 3,
     parent: 2,
     expanded: false,
+    clickExpanded: false,
     childrenAdded: false
   }
 }
@@ -64,30 +68,35 @@ const App = () => {
         setNodeDataList(final);
       }
 
-    setNodeData({...nodeData, [id]: {...nodeData[id], expanded: true, childrenAdded: true}})
+    setNodeData({...nodeData, [id]: {...nodeData[id], expanded: true, childrenAdded: true, clickExpanded: true}})
   };
 
-  const hideChildren = (id) => {
-    setNodeData({...nodeData, [id]: {...nodeData[id], expanded: false}})
+  const hideChildren = (id, clickExpanded) => {
+    setNodeData({...nodeData, [id]: {...nodeData[id], expanded: false, clickExpanded}})
   }
+
+  console.log({nodeData})
 
   return <div className="node-container">
     {
       nodeDataList.map((nodeId, index) => {
-        const {key, name, depth, expanded, parent } = nodeData[nodeId];
+        const {key, name, depth, expanded, parent, clickExpanded } = nodeData[nodeId];
         const isParentExpanded = nodeData[parent]?.expanded;
         
         if(!isParentExpanded && parent !== null) {
-          
           if(expanded){
-            hideChildren(nodeId);
+            hideChildren(nodeId, true);
           }
           return null;
         };
 
+        if(isParentExpanded && clickExpanded && !expanded){
+          handleChildInsertion(nodeId, index);
+        }
+
         return <div key={key} style={{paddingLeft: `${depth * 20}px`}} className="node-item" onClick={() => {
             if(nodeData[nodeId].expanded){
-              hideChildren(nodeId);
+              hideChildren(nodeId, false);
             }else {
               handleChildInsertion(nodeId, index);
             }
