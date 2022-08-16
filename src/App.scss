@@ -1,5 +1,8 @@
 .node {
     &-container {
+        display: flex;
+        flex-direction: column;
+
         padding: 5rem 2rem;
 
         background-color: #EEE;
@@ -22,22 +25,17 @@
         user-select: none;
 
         position: relative;
-
-        
-        &::before {
-            content: "";
-            background-color: #CCC;
-
-            position: absolute;
-
-            top: -2rem;
-
-            display: block;
-
-            height: 100%;
-            width: 1px;
-
-            z-index: 200;
-        }
     }
+
+    &-table {
+        margin-top: 3rem;
+    }
+}
+
+.ant-table-thead {
+    display: none !important;
+}
+
+.ant-pagination.ant-table-pagination.ant-table-pagination-right {
+    display: none !important;
 }
